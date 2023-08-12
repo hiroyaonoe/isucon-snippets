@@ -3,4 +3,5 @@
 TBD
 ```
 sudo journalctl -f
+sudo journalctl -u mysql
 ```

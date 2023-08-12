@@ -1,8 +1,7 @@
 #! /bin/bash -ex
 
 SERVER=$1 # 数字を指定
-# DIRECTORIES="/etc/mysql /etc/nginx /etc/systemd/system"
-DIRECTORIES="/etc/apache2 /etc/mysql"
+DIRECTORIES="/etc/mysql /etc/nginx /etc/systemd/system /etc/sysctl.conf"
 
 if [ -z $SERVER ]; then
   echo "Please set SERVER"

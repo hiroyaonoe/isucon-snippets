@@ -3,10 +3,8 @@
 ## 開始直後(1時間程度)
 - GitHubにpush
   - 一旦アプリ全体
-  - etc配下は変更が必要な時に
-    - `/etc/mysql/*`
-    - `/etc/nginx/*`
-    - `/etc/systemd/system/*`
+  - etc配下は必要に応じて`server1`, `server2`, `server3`へ
+    - `script/commit-etc.sh 1`
   - go以外のいらないやつは削除しても良い
 - 分析ツールの導入
   - `script/install.sh`
@@ -54,9 +52,6 @@
 - `script/flush-log.sh` (ログを削除, rotate)
 - ベンチマーク実行(結果を保存すること)
 - `script/analyze.sh` (分析ツールを実行して結果をファイルに保存)
-### 気をつけること
-- 推測するな、計測せよ
-- 施策は小さく
 
 ## 最後(1時間程度)
 - ブランチをmainにする
@@ -72,13 +67,21 @@
   - ログでディスク埋まる可能性がある
 - HTTP, CSSの表示は正常か
 
-# よくある改善方法
+# その他
+## 気をつけること
+- 推測するな、計測せよ
+- 施策は小さく
+
+## よくある改善方法
 - DBのindex
 - N+1
+- クエリにLIMITつける
 - bulk insert
-  - 可能なら非同期でまとめて
+  - 場合によってはキューイングによってまとめて非同期で
 - インメモリキャッシュ
   - マニュアルにキャッシュできるか書いてある
+  - 場合によってはRedis使うかも
+- Cache-Controlヘッダをつける
 - Nginx, MySQLのconfigいじり
   - 特にmax connection, bufferなど
   - 静的ファイルをnginxで配信
@@ -87,8 +90,10 @@
     - Nginxでロードバランス
   - 難しいけどDBの水平/垂直スケールも？
 - 画像をDBからファイルへ
+実装は↓が参考になるかも  
+https://github.com/hiroyaonoe/isucon11-qualify/blob/master/docs/strategy.md
 
-# 改善途中の分析方法
+## 改善途中の分析方法
 - MySQLでEXPLAINしてみる
   - Indexの使用状況とかわかる
   - pt-query-digestでも見れるかも

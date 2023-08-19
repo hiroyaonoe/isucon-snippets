@@ -2,10 +2,21 @@
 
 ## 開始直後(1時間程度)
 - GitHubにpush
-  - 一旦アプリ全体
+  - 一旦アプリ全体(おそらく`$HOME`)
+    - すでにあるディレクトリにcloneして内容をcommitする場合
+    - ```
+      git init --initial-branch main
+      git remote add origin <clone URL>
+      git fetch
+      git checkout main # 2台目以降の場合は重複ファイルを削除する
+      vim .gitignore # 必要ないファイルをignore(特にSecretやDBデータなど注意)
+      git add .
+      git commit -m "HOME"
+      ```
   - etc配下は必要に応じて`server1`, `server2`, `server3`へ
-    - `script/commit-etc.sh 1`
+    - `script/commit-etc.sh 1 /etc/mysql/conf.d/my.cnf`
   - go以外のいらないやつは削除しても良い
+
 - 分析ツールの導入
   - `script/install.sh`
     - [alp](https://github.com/tkuchiki/alp)
@@ -17,6 +28,7 @@
       - `ssh -L 19999:localhost:19999 remote-server`(`-f`でバックグラウンド実行)
 - configを適用
   - MySQLのslow query log
+  - `sudo systemctl restart mysql.service`
 - ベンチマーク実行
 - レギュレーション・マニュアルをよく読む
   - スコアの算出方法・失格条件

@@ -14,7 +14,7 @@
       git commit -m "HOME"
       ```
   - etc配下は必要に応じて`server1`, `server2`, `server3`へ
-    - `script/commit-etc.sh 1 /etc/mysql/conf.d/my.cnf`
+    - `script/commit-etc.sh /etc/mysql/conf.d/my.cnf`
   - go以外のいらないやつは削除しても良い
 
 - 分析ツールの導入

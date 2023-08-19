@@ -16,3 +16,5 @@ sudo cat /var/log/nginx/access.log | alp ltsv --sort $ALPSORT --reverse -o $OUTF
 sudo pt-query-digest /var/log/mysql/slow.log >> ./analyze/${DATE}_slow-query.txt
 # 文字化け等でpt-query-digest使えない場合
 # sudo mysqldumpslow -s t | head -n 20 >> ./analyze/${DATE}_slow-query.txt
+
+# TODO: Slack Webhook使って通知

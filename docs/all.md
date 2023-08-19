@@ -28,7 +28,9 @@
       - `ssh -L 19999:localhost:19999 remote-server`(`-f`でバックグラウンド実行)
 - configを適用
   - MySQLのslow query log
-  - `sudo systemctl restart mysql.service`
+    - `sudo systemctl restart mysql.service`
+  - nginxのlogをlstvに
+    - `sudo systemctl restart nginx.service`
 - ベンチマーク実行
 - レギュレーション・マニュアルをよく読む
   - スコアの算出方法・失格条件

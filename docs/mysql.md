@@ -4,6 +4,7 @@
 ```
 [mysqld]
 bind-address = 0.0.0.0
+mysqlx-bind-address	= 0.0.0.0
 ```
 
 ユーザーのhost変更(@以降を%にする)

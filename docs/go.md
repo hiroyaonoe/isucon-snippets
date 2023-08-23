@@ -40,16 +40,20 @@ Bulk Insert
 import (
 	"time"
 
-	"github.com/patrickmn/go-cache"
+	cache "github.com/patrickmn/go-cache"
+)
+
+const (
+	CacheNoExpiration = cache.NoExpiration
 )
 
 type Cache[V any] struct {
 	cache *cache.Cache
 }
 
-func NewCache[V any](expiration time.Time) *Cache[V] {
+func NewCache[V any](expiration time.Duration) *Cache[V] {
 	return &Cache[V]{
-		cache: cache.New(expiration, cache.NoExpiration) // 2つ目はexpireしたキャッシュをclearする間隔でOFFにしている
+		cache: cache.New(expiration, cache.NoExpiration), // 2つ目はexpireしたキャッシュをclearする間隔でOFFにしている
 	}
 }
 
@@ -69,6 +73,7 @@ func (c *Cache[V]) Set(k string, v V) {
 func (c *Cache[V]) SetNoExpiration(k string, v V) {
 	c.cache.Set(k, v, cache.NoExpiration)
 }
+
 ```
 
 ## goccy/go-json

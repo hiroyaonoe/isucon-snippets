@@ -24,8 +24,11 @@
   - netdata
     - https://app.netdata.cloud/
     - ここからインストール
-    - 19999をport-forwardする(firewallいじるのはダメな場合があるのでやらない方がよい)
+    - (ローカルで見たいなら)19999をport-forwardする(firewallいじるのはダメな場合があるのでやらない方がよい)
       - `ssh -L 19999:localhost:19999 remote-server`(`-f`でバックグラウンド実行)
+  - pprof
+    - Goのコードに書く(`docs/go.md`参照)
+    - `ssh -L 6060:localhost:6060 remote-server`
 - configを適用
   - MySQLのslow query log
     - `sudo systemctl restart mysql.service`
@@ -62,10 +65,12 @@
   - ベンチマーク結果にはあまり変化がなくても後に影響がある可能性もある
 ### ベンチマーク実行手順
 - `script/cp-etc.sh` (etcをコピー)
-- `script/restart.sh` (アプリ, nginxなどを再起動)
+- `script/restart.sh` (goのbuild, アプリ, nginxなどを再起動)
 - `script/flush-log.sh` (ログを削除, rotate)
+- localhostで6060をsshポートフォワード&`script/pprof.sh`実行
 - ベンチマーク実行(結果を保存すること)
 - `script/analyze.sh` (分析ツールを実行して結果をファイルに保存)
+- 結果をcommit
 
 ## 最後(1時間程度)
 - ブランチをmainにする
